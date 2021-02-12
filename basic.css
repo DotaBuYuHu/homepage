@@ -1,0 +1,17 @@
+.winner {
+    background-color: #00ff00 !important;
+    font-weight: bold;
+}
+.name-list:hover {
+    background-color:#00ff00;
+}
+.name-list.winnerListFull:hover {
+    background-color:#FF0000 !important;
+}
+.loser {
+    background-color: #FF0000;
+    font-weight: bold;
+}
+.error {
+    color:#FF0000 !important;
+}

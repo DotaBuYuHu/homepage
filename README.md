@@ -9,8 +9,28 @@ Route 53 route to an EC2 instance. And the domain is from GoDaddy.
 ## EC2
 Index.html is host by EC2.
 ## API Gateway
-We have two endpoint GET & POST. 
-Simple of Get Response:
-Simple of Post payload:
+We have two endpoints GET & POST. 
+* Simple of GET Response:
+```
+{
+    "matchContent": [
+         {
+            "MonthTableId": "score-2-2021",
+            "Winner": "Autismy,element蛙呱呱,赵德柱,全能莽夫戴维德,幸福啪啪啪",
+            "MatchId": "1613118059337",
+            "Loser": "Aren,地鼠,Lala,木幕的执着,Grandson Liu"
+        }	  
+    ]
+}
+```
+* Simple of POST payload:
+```
+{
+    "MonthTableId": "score-2-2021",
+    "Winner": "Autismy,element蛙呱呱,赵德柱,全能莽夫戴维德,幸福啪啪啪",
+    "MatchId": "1613118059337",
+    "Loser": "Aren,地鼠,Lala,木幕的执着,Grandson Liu"
+}
+```
 ## DynamoDB
 ![alt text](https://github.com/DotaBuYuHu/homepage/blob/master/image/dynamodb.png?raw=true)

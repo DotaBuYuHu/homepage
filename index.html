@@ -90,18 +90,18 @@ body, html {
         <div ng-app="homepage" ng-cloak ng-controller="myCtrl">
           <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
             <tr>
-              <td>游戏名</td>
-              <td>胜场</td>
-              <td>输场</td>
-              <td>总场数</td>
-              <td>胜率</td>
+              <td href="#" ng-click="orderByField='name'; reverseSort = !reverseSort">游戏名<span ng-show="orderByField == 'name'"><span ng-show="!reverseSort">&#8593;</span><span ng-show="reverseSort">&#8595;</span></span></td>
+              <td href="#" ng-click="orderByField='win'; reverseSort = !reverseSort">胜场<span ng-show="orderByField == 'win'"><span ng-show="!reverseSort">&#8593;</span><span ng-show="reverseSort">&#8595;</span></span></td>
+              <td href="#" ng-click="orderByField='lose'; reverseSort = !reverseSort">输场<span ng-show="orderByField == 'lose'"><span ng-show="!reverseSort">&#8593;</span><span ng-show="reverseSort">&#8595;</span></span></td>
+              <td href="#" ng-click="orderByField='total'; reverseSort = !reverseSort">总场数<span ng-show="orderByField == 'total'"><span ng-show="!reverseSort">&#8593;</span><span ng-show="reverseSort">&#8595;</span></span></td>
+              <td href="#" ng-click="orderByField='percentage'; reverseSort = !reverseSort">胜率<span ng-show="orderByField == 'percentage'"><span ng-show="!reverseSort">&#8593;</span><span ng-show="reverseSort">&#8595;</span></span></td>
             </tr>
-            <tr ng-repeat='(key, value) in winnerList'>
-              <td>{{ key }}</td>
-              <td>{{ value }}</td>
-              <td>{{ loserList[key] }}</td>
-              <td>{{ value + loserList[key] }}</td>
-              <td>{{ helper(value, value + loserList[key]) }}%</td>
+            <tr ng-repeat='item in data|orderBy:orderByField:reverseSort'>
+              <td>{{ item.name }}</td>
+              <td>{{ item.win }}</td>
+              <td>{{ item.lose }}</td>
+              <td>{{ item.total }}</td>
+              <td>{{ item.percentage }}%</td>
             </tr>
           </table><br>
         </div>
@@ -183,45 +183,50 @@ var app = angular.module("homepage", []);
 app.controller("myCtrl", function($scope, $http, $timeout) {
     var currentDate = new Date();
     var currentDateString = 'score-' + (currentDate.getMonth()+1) + '-' + currentDate.getFullYear();
-
+    var data = [];
     $http.get("https://svxgdnw71d.execute-api.us-west-2.amazonaws.com/dev/" + currentDateString)
       .then((response) => {
-        var winnerMap = {}
-        var loserMap = {}
-
         response.data.matchContent.forEach(function (item, index) {
           var winner = item.Winner.split(",");
           var loser = item.Loser.split(",");
           
           winner.forEach((item, index) => {
-            if (Object.keys(winnerMap).includes(item)) {
-              winnerMap[item] += 1;
+            var dataElementIndex = data.findIndex(element => element.name === item);
+            if (dataElementIndex != -1) {
+              data[dataElementIndex].win += 1
             } else {
-              winnerMap[item] = 1;
+              data.push({
+                "name": item,
+                "win": 1,
+                "lose": 0,
+                "total": 0,
+                "percentage": 0
+              })
             }
-            if (!Object.keys(loserMap).includes(item)) {
-              loserMap[item] = 0;
-            }
-          })
+          });
 
           loser.forEach((item, index) => {
-            if (Object.keys(loserMap).includes(item)) {
-              loserMap[item] += 1;
+            var dataElementIndex = data.findIndex(element => element.name === item);
+            if (dataElementIndex != -1) {
+              data[dataElementIndex].lose += 1
             } else {
-              loserMap[item] = 1;
+              data.push({
+                "name": item,
+                "win": 0,
+                "lose": 1,
+                "total": 0,
+                "percentage": 0
+              })
             }
-            if (!Object.keys(winnerMap).includes(item)) {
-              winnerMap[item] = 0;
-            }
-          })
+          });
+
+          data.forEach((item) => {
+              item.total = item.win + item.lose;
+              item.percentage = Math.floor((item.win / item.total) * 100);
+          });
         });
-        $scope.winnerList = winnerMap
-        $scope.loserList = loserMap
+        $scope.data = data;
       })
-  
-      $scope.helper = function(num1, num2) {
-        return Math.floor((num1 / num2) * 100);
-      }
 })
 
 // Change style of navbar on scroll

@@ -95,6 +95,7 @@ body, html {
               <td href="#" ng-click="orderByField='lose'; reverseSort = !reverseSort">输场<span ng-show="orderByField == 'lose'"><span ng-show="!reverseSort">&#8593;</span><span ng-show="reverseSort">&#8595;</span></span></td>
               <td href="#" ng-click="orderByField='total'; reverseSort = !reverseSort">总场数<span ng-show="orderByField == 'total'"><span ng-show="!reverseSort">&#8593;</span><span ng-show="reverseSort">&#8595;</span></span></td>
               <td href="#" ng-click="orderByField='percentage'; reverseSort = !reverseSort">胜率<span ng-show="orderByField == 'percentage'"><span ng-show="!reverseSort">&#8593;</span><span ng-show="reverseSort">&#8595;</span></span></td>
+              <td href="#" ng-click="orderByField='point'; reverseSort = !reverseSort">排名积分<span ng-show="orderByField == 'point'"><span ng-show="!reverseSort">&#8593;</span><span ng-show="reverseSort">&#8595;</span></span></td>
             </tr>
             <tr ng-repeat='item in data|orderBy:orderByField:reverseSort'>
               <td>{{ item.name }}</td>
@@ -102,6 +103,7 @@ body, html {
               <td>{{ item.lose }}</td>
               <td>{{ item.total }}</td>
               <td>{{ item.percentage }}%</td>
+              <td>{{ item.point }}</td>
             </tr>
           </table><br>
         </div>
@@ -200,7 +202,8 @@ app.controller("myCtrl", function($scope, $http, $timeout) {
                 "win": 1,
                 "lose": 0,
                 "total": 0,
-                "percentage": 0
+                "percentage": 0,
+                "point" : 0
               })
             }
           });
@@ -215,7 +218,8 @@ app.controller("myCtrl", function($scope, $http, $timeout) {
                 "win": 0,
                 "lose": 1,
                 "total": 0,
-                "percentage": 0
+                "percentage": 0,
+                "point" : 0
               })
             }
           });
@@ -223,6 +227,7 @@ app.controller("myCtrl", function($scope, $http, $timeout) {
           data.forEach((item) => {
               item.total = item.win + item.lose;
               item.percentage = Math.floor((item.win / item.total) * 100);
+              item.point = 2 * item.win - item.lose;
           });
         });
         $scope.data = data;

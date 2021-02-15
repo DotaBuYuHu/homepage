@@ -6,8 +6,6 @@ This's BuYuHu's homepage, and this repo contains the frontend code. www.dotabuyu
 ![alt text](https://github.com/DotaBuYuHu/homepage/blob/master/image/scoreTracker.png?raw=true)
 ## Route 53
 Route 53 route to an EC2 instance. And the domain is from GoDaddy.
-## EC2
-Index.html is host by EC2.
 ## API Gateway
 We have two endpoints GET & POST. 
 * Simple of GET Response:

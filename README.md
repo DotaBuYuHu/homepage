@@ -1,7 +1,7 @@
 # BuYuHu Homepage
 This's BuYuHu's homepage, and this repo contains the frontend code. www.dotabuyuhu.com
 ## Design Diagram
-![alt text](https://github.com/DotaBuYuHu/homepage/blob/master/image/designDiagram.png?raw=true)
+![alt text](https://github.com/DotaBuYuHu/homepage/blob/master/image/designDiagram2.0.png?raw=true)
 ## ScoreTracker UI
 ![alt text](https://github.com/DotaBuYuHu/homepage/blob/master/image/scoreTracker.png?raw=true)
 ## Route 53

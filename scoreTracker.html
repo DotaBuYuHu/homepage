@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<script src="./API-KEY.js"></script>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" type="text/css" href="./basic.css"  />
 <body>
@@ -11,7 +12,7 @@ app.controller("myCtrl", function($scope, $http) {
     $scope.winners = [];
     $scope.losers = [];
     $scope.submitError = false;
-    $scope.names = ['element蛙呱呱', '赵德柱', '幸福啪啪啪', 'Autismy', '木幕的执着', 'Aren', 'Wolfpack', 'jennierubyjane', '哪托', 'Lala', '送僵', 'bottlezz2002', 'Leo', '地鼠', '全能莽夫戴维德' , 'Grandson Liu', 'Voronoi', '3700', 'Tang'];
+    $scope.names = ['element蛙呱呱', '赵德柱', '幸福啪啪啪', 'Autismy', '木幕的执着', 'Aren', 'Wolfpack', 'jennierubyjane', '哪托', 'Lala', '送僵', 'bottlezz2002', 'Leo', '地鼠', '全能莽夫戴维德' , 'Grandson Liu', 'Voronoi', '3700', 'Tang', 'Cilymice', '演员已就位', 'V', '主席'];
     $scope.addItem = function () {
         if ($scope.winners.length !== 5 || $scope.losers.length !== 5) return;
 
@@ -23,7 +24,7 @@ app.controller("myCtrl", function($scope, $http) {
           url: 'https://svxgdnw71d.execute-api.us-west-2.amazonaws.com/dev/',
           headers: {
             'Content-Type': 'application/json',
-            'X-API-Key': 'API_KEY_GOES_HERE'
+            'X-API-Key': apiKey
           },
           data: {
             "MonthTableId": currentDateString,

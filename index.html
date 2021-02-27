@@ -102,6 +102,7 @@ body, html {
           <td href="#" ng-click="orderByField='lose'; reverseSort = !reverseSort">输场<span ng-show="orderByField == 'lose'"><span ng-show="!reverseSort">&#8593;</span><span ng-show="reverseSort">&#8595;</span></span></td>
           <td href="#" ng-click="orderByField='total'; reverseSort = !reverseSort">总场数<span ng-show="orderByField == 'total'"><span ng-show="!reverseSort">&#8593;</span><span ng-show="reverseSort">&#8595;</span></span></td>
           <td href="#" ng-click="orderByField='percentage'; reverseSort = !reverseSort">胜率<span ng-show="orderByField == 'percentage'"><span ng-show="!reverseSort">&#8593;</span><span ng-show="reverseSort">&#8595;</span></span></td>
+          <td href="#" ng-click="orderByField='mvp'; reverseSort = !reverseSort">MVP<span ng-show="orderByField == 'mvp'"><span ng-show="!reverseSort">&#8593;</span><span ng-show="reverseSort">&#8595;</span></span></td>
           <td href="#" ng-click="orderByField='point'; reverseSort = !reverseSort">排名积分<span ng-show="orderByField == 'point'"><span ng-show="!reverseSort">&#8593;</span><span ng-show="reverseSort">&#8595;</span></span></td>
         </tr>
         <tr ng-repeat='item in data|orderBy:orderByField:reverseSort'>
@@ -110,6 +111,7 @@ body, html {
           <td>{{ item.lose }}</td>
           <td>{{ item.total }}</td>
           <td>{{ item.percentage }}%</td>
+          <td>{{ item.mvp }}</td>
           <td>{{ item.point }}</td>
         </tr>
       </table><br>
@@ -221,6 +223,7 @@ app.controller("myCtrl", function($scope, $http, $timeout) {
           
           winner.forEach((item, index) => {
             var dataElementIndex = data.findIndex(element => element.name === item);
+
             if (dataElementIndex != -1) {
               data[dataElementIndex].win += 1
             } else {
@@ -230,8 +233,14 @@ app.controller("myCtrl", function($scope, $http, $timeout) {
                 "lose": 0,
                 "total": 0,
                 "percentage": 0,
+                "mvp": 0,
                 "point" : 0
               })
+              dataElementIndex = data.length - 1;
+            }
+
+            if (index == 0) {
+              data[dataElementIndex].mvp += 1;
             }
           });
 
@@ -246,6 +255,7 @@ app.controller("myCtrl", function($scope, $http, $timeout) {
                 "lose": 1,
                 "total": 0,
                 "percentage": 0,
+                "mvp": 0,
                 "point" : 0
               })
             }

@@ -117,15 +117,15 @@ body, html {
   <p class="w3-large w3-center w3-padding-16">人气选手</p>
   <p class="w3-wide"><img src="image/zhaodezhu.png" class="headimg">赵德柱</p>
   <div class="w3-light-grey">
-    <div class="w3-container w3-padding-small w3-dark-grey w3-center" style="width:100%">44场</div>
+    <div class="w3-container w3-padding-small w3-dark-grey w3-center" style="width:100%">49场</div>
   </div>
   <p class="w3-wide"><img src="image/papapa.png" class="headimg"></img>啪啪啪</p>
   <div class="w3-light-grey">
-    <div class="w3-container w3-padding-small w3-dark-grey w3-center" style="width:94%">41场</div>
+    <div class="w3-container w3-padding-small w3-dark-grey w3-center" style="width:83%">41场</div>
   </div>
   <p class="w3-wide"><img src="image/Autismy.png" class="headimg"></img>Autismy</p>
   <div class="w3-light-grey">
-    <div class="w3-container w3-padding-small w3-dark-grey w3-center" style="width:88%">37场</div>
+    <div class="w3-container w3-padding-small w3-dark-grey w3-center" style="width:81%">40场</div>
   </div>
 </div>
 
@@ -168,7 +168,7 @@ body, html {
         <td href="#" ng-click="orderByField='percentage'; reverseSort = !reverseSort">胜率<span ng-show="orderByField == 'percentage'"><span ng-show="!reverseSort">&#8593;</span><span ng-show="reverseSort">&#8595;</span></span></td>
         <td href="#" ng-click="orderByField='point'; reverseSort = !reverseSort">排名积分<span ng-show="orderByField == 'point'"><span ng-show="!reverseSort">&#8593;</span><span ng-show="reverseSort">&#8595;</span></span></td>
       </tr>
-      <tr ng-repeat='item in data|orderBy:orderByField:reverseSort'>
+      <tr ng-repeat='item in feb_result|orderBy:orderByField:reverseSort'>
         <td>{{ item.name }}</td>
         <td>{{ item.win }}</td>
         <td>{{ item.lose }}</td>
@@ -218,7 +218,6 @@ app.controller("myCtrl", function($scope, $http, $timeout) {
         response.data.matchContent.forEach(function (item, index) {
           var winner = item.Winner.split(",");
           var loser = item.Loser.split(",");
-          
           winner.forEach((item, index) => {
             var dataElementIndex = data.findIndex(element => element.name === item);
             if (dataElementIndex != -1) {

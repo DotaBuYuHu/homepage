@@ -15,3 +15,6 @@
 .error {
     color:#FF0000 !important;
 }
+.w3-ul {
+    column-count: 2;
+}
